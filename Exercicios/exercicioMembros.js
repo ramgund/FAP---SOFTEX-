@@ -30,10 +30,10 @@ function adicionarTarefa() {
   if (tarefa) {
     console.log("A tarefa já está ligada a outro membro.");
   } else {
-    let membro = membros.find((m) => m.id === idMembro);
+    let membro = membros.find((m) => m.id_membro === idMembro);
 
     if (membro) {
-      membros.tarefas.push({
+      membro.tarefas.push({
         id_tarefa: idTarefa,
         descricao_tarefa: descricaoTarefa,
       });
@@ -57,5 +57,5 @@ if (resp === 1) {
 } else if (resp === 2) {
   adicionarMembro();
 } else if (resp === 3) {
-  console.log(tarefasMembros);
+  console.log("Saindo");
 }
