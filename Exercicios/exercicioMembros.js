@@ -23,6 +23,7 @@ function adicionarTarefa() {
   let idTarefa = parseInt(rl.question("Digite o id da tarefa: "));
   let descricaoTarefa = rl.question("Digite a descricao da tarefa: ");
 
+  // verifica se a tarefa esta atribuida a algum membro
   let tarefa = membros.some((m) =>
     m.tarefas.some((t) => t.id_tarefa === idTarefa)
   );
@@ -30,6 +31,7 @@ function adicionarTarefa() {
   if (tarefa) {
     console.log("A tarefa já está ligada a outro membro.");
   } else {
+    //  verifica se existe um membro com esse id
     let membro = membros.find((m) => m.id_membro === idMembro);
 
     if (membro) {
