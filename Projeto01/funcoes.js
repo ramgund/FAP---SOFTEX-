@@ -13,16 +13,17 @@ const menuInicial = () => {
 const cadastrarTarefa = () => {
   var idTarefa = parseInt(rl.question("Digite o id da tarefa: "));
   var descricaoTarefa = rl.question("Digite a descrição da tarefa: ");
-  tarefas.push({
-    id: idTarefa,
-    descricao: descricaoTarefa,
-  });
-  let hasId = tarefas.some((tarefa) => tarefa.id === idTarefa);
 
-  if (hasId == false) {
-    console.log("Tarefa cadastrada com sucesso!");
-  } else {
+  let hasId = tarefas.find((tarefa) => tarefa.id == idTarefa);
+
+  if (hasId) {
     console.log("Tarefa já existe!");
+  } else {
+    tarefas.push({
+      id: idTarefa,
+      descricao: descricaoTarefa,
+    });
+    console.log("Tarefa Adicionada!");
   }
 };
 
@@ -50,9 +51,9 @@ const excluirTarefas = () => {
   var idExcluido = parseInt(
     rl.question("Digite o id da tarefa a ser excluida: ")
   );
-  var index = tarefas.findIndex((tarefa) => tarefa.id == idExcluido);
-  if (index !== -1) {
-    tarefas.splice(index, 1); 
+  var existeId = tarefas.find((tarefa) => tarefa.id == idExcluido);
+  if (existeId) {
+    tarefas.splice(existeId, 1);
     console.log("Tarefa excluida com sucesso!");
   } else {
     console.log("Tarefa não encontrada.");
