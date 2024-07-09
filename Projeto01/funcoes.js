@@ -17,12 +17,12 @@ const cadastrarTarefa = () => {
     id: idTarefa,
     descricao: descricaoTarefa,
   });
-  const hasId = tarefas.some((tarefa) => tarefa.id == idTarefa);
+  let hasId = tarefas.some((tarefa) => tarefa.id === idTarefa);
 
-  if (hasId) {
-    console.log("Tarefa já cadastrada");
-  } else {
+  if (hasId == false) {
     console.log("Tarefa cadastrada com sucesso!");
+  } else {
+    console.log("Tarefa já existe!");
   }
 };
 
