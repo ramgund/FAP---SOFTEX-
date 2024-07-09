@@ -50,9 +50,9 @@ const excluirTarefas = () => {
   var idExcluido = parseInt(
     rl.question("Digite o id da tarefa a ser excluida: ")
   );
-  var index = tarefas.findIndex((tarefa) => tarefa.id === idExcluido);
+  var index = tarefas.findIndex((tarefa) => tarefa.id == idExcluido);
   if (index !== -1) {
-    tarefas.splice(index, 1); // Utiliza splice para remover a tarefa no índice 'index'
+    tarefas.splice(index, 1); 
     console.log("Tarefa excluida com sucesso!");
   } else {
     console.log("Tarefa não encontrada.");
