@@ -31,17 +31,17 @@ const alterarTarefa = () => {
   var pesquisarTarefa = parseInt(
     rl.question("Digite o id da tarefa que deseja alterar: ")
   );
-  const index = tarefas.findIndex((tarefa) => tarefa.id == pesquisarTarefa);
+  const procurarId = tarefas.findIndex((tarefa) => tarefa.id == pesquisarTarefa);
 
-  if (index != -1) {
+  if (procurarId) {
     var opcoes = parseInt(rl.question("1 - Alterar id\n2 - Alterar descricao"));
   }
   if (opcoes == 1) {
     var novoId = parseInt(rl.question("Digite o novo id: "));
-    tarefas[index].id = novoId;
+    tarefas[procurarId].id = novoId;
   } else if (opcoes == 2) {
     var novaDescricao = rl.question("Digite a nova descricao: ");
-    tarefas[index].descricao = novaDescricao;
+    tarefas[procurarId].descricao = novaDescricao;
   } else {
     console.log("Opcao invalida");
   }
