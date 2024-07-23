@@ -2,7 +2,6 @@ const rl = require("readline-sync");
 
 let tarefas = [];
 
-// menu inicial do programa
 const menuInicial = () => {
   return parseInt(
     rl.question(
@@ -11,12 +10,10 @@ const menuInicial = () => {
   );
 };
 
-// cadastro de tarefas
 const cadastrarTarefa = () => {
   var idTarefa = parseInt(rl.question("Digite o id da tarefa: "));
   var descricaoTarefa = rl.question("Digite a descrição da tarefa: ");
 
-  // procura um id existente na tarefa
   let hasId = tarefas.find((tarefa) => tarefa.id == idTarefa);
 
   if (hasId) {
@@ -34,8 +31,7 @@ const alterarTarefa = () => {
   var pesquisarTarefa = parseInt(
     rl.question("Digite o id da tarefa que deseja alterar: ")
   );
-  // pesquisa o id do input na tarefa
-  const procurarId = tarefas.find((tarefa) => tarefa.id == pesquisarTarefa);
+  const procurarId = tarefas.findIndex((tarefa) => tarefa.id == pesquisarTarefa);
 
   if (procurarId) {
     var opcoes = parseInt(rl.question("1 - Alterar id\n2 - Alterar descricao"));
