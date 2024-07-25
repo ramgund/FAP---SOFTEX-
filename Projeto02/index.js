@@ -1,86 +1,55 @@
-const rl = require('readline-sync');
+const rl = require('readline-sync')
 
-let medicos = [];
-let pacientes = [];
+var medicos = [];
 
-// ====CADASTRO DE MEDICOS====
+var pacientes = [];
+
+
+const menuInicial = () => {
+    return parseInt(rl.question("===MENU===\n1 - Cadastrar medico\n2 - Cadastrar Paciente\n3 - Excluir paciente\n4 - Alterar paciente\n5 - Alterar médico\n6 - SAIR"));
+
+}
+
+// cadastro de medicos
 
 const CadastrarMedico = () => {
-    let nome = rl.question("Digite o nome do médico: ")
-    
-    let id = parseInt(r.question("Digite o id do medico: "))
+    var idMedico = parseInt(rl.question("Insira o ID do médico: "));
 
-    medicos.push({
-        idMedico: id,
-        nomeMedico: nome,
+    var nomeMedico = rl.question("Digite o nome do médico: ");
 
-    })
+    var hasId = medicos.find(m => m.id == idMedico)
 
-    if (typeof id !== Number) {
-        console.log("Digite apenas numeros.") 
-        CadastrarMedico()
+    if (hasId) {
+        console.log("Médico já existe.")
     } else {
-        console.log("Médico Cadastrado")
-        menuInicial();
+        medicos.push({
+            id: idMedico,
+            nome: nomeMedico,
+            
+
+        })
+        console.log(`Medico ${nomeMedico} cadastrado com sucesso!`)
     }
 }
 
-// ====CADASTRO DE PACIENTES====
-const cadastrarPaciente = () => {
-    let nome = rl.question("Digite o nome do paciente: ")
+const CadastrarPacientes = () => {
+    var idPaciente = parseInt(rl.question("Digite o id do paciente: "));
     
-    let id = parseInt(rl.question("Digite o id do paciente: "));
+    var nomePaciente = rl.question("Digite o nome do paciente: ");
 
-    pacientes.push({
-        nomePaciente: nome,
-        IdPaciente: id,
-    })
+    var hasId = pacientes.find(p => p.id == idPaciente);
 
-
-
-    if (typeof id !== Number) {
-        console.log("Digite apenas numeros.") 
-        cadastrarPaciente();
+    if (hasId) {
+        console.log("Paciente já existe. Tente novamente");
+        CadastrarPacientes();
     } else {
-        console.log("Paciente cadastrado com sucesso!")
-        menuInicial();
-    }
-}
-
-const getById = () => {
-    let id = parseInt(rl.question("Digite o id procurado: ")); 
-
-    return  medicos.some(m => m.id === id);
-
-}
-
-// ====EXCLUIR PACIENTE====
-
-const ExcluirPaciente = () => {
-    
-    const HasId = getById()
-
-    if (HasId) {
-        pacientes.splice
+        pacientes.push({
+            id: idPaciente,
+            nome: nomePaciente,
+        })
+        console.log(`Paciente ${nomePaciente} Cadastrado com sucesso!`)
     }
 
-    
 }
 
-// ====MENU INICIAL====
-const menuInicial = () => {
-    return opcoes = parseInt(rl.question("===MENU===\nSelecione uma opcao: 1 - Cadastrar um médico\n2 - Cadastrar um paciente\n3 - Excluir um paciente\n4 - Alterar paciente\n5 - SAIR"))
 
-}
-
-while (menuInicial() !== 5) {
-    if(menuInicial() == 1) {
-        CadastrarMedico();
-    } else if (menuInicial() == 2) {
-        cadastrarPaciente();
-    } else if (menuInicial() == 3) {
-
-    }
-}
-
-menuInicial()
