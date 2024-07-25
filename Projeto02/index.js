@@ -4,6 +4,8 @@ var medicos = [];
 
 var pacientes = [];
 
+var historico = [];
+
 
 const menuInicial = () => {
     return parseInt(rl.question("===MENU===\n1 - Cadastrar medico\n2 - Cadastrar Paciente\n3 - Excluir paciente\n4 - Alterar paciente\n5 - Alterar médico\n6 - SAIR"));
@@ -25,8 +27,6 @@ const CadastrarMedico = () => {
         medicos.push({
             id: idMedico,
             nome: nomeMedico,
-            
-
         })
         console.log(`Medico ${nomeMedico} cadastrado com sucesso!`)
     }
@@ -53,3 +53,27 @@ const CadastrarPacientes = () => {
 }
 
 
+const cadastrarHistorico = () => {
+
+    var paciente = parseInt(rl.question("Digite o id do paciente que deseja cadastrar: "));
+
+    var pacienteExiste = pacientes.find(p => p.id == paciente);
+
+    var medico = parseInt(rl.question("Digite o id do medico: "))
+
+    var medicoExiste = medicos.find(m => m.id == medico);
+
+    if (pacienteExiste && medicoExiste) {
+        historico.push({
+            pacienteExiste,
+            medicoExiste,
+        })
+    } else {
+        
+    }
+
+
+
+    
+
+}
