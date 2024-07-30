@@ -27,20 +27,26 @@ FOREIGN KEY (id_p) REFERENCES medico(id_medico),
 FOREIGN KEY (id_medico) REFERENCES medico(id_medico)
 );
 
-CREATE TABLE telefone_p(
-telefone_idP INT AUTO_INCREMENT NOT NULL,
-  telefone_p VARCHAR(45),
-  id_p INT NOT NULL,
-    PRIMARY KEY (telefone_idP),
-  FOREIGN KEY (id_p) REFERENCES paciente(id_p)
-);
-
-CREATE TABLE telefone_m(
-telefone_idM INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE endereco_m(
+id_endereco INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 id_medico INT NOT NULL,
-  FOREIGN KEY (id_medico) REFERENCES medico(id_medico),
-  telefone_m VARCHAR(45)
+rua VARCHAR(45) NOT NULL,
+cidade VARCHAR(45) NOT NULL, 
+bairro VARCHAR(45) NOT NULL, 
+estado VARCHAR(45) NOT NULL,
+complemento VARCHAR(10) NOT NULL,
+numero INT NOT NULL,
+FOREIGN KEY (id_medico) REFERENCES medico(id_medico)
 );
 
-SELECT * FROM consulta
-
+CREATE TABLE endereco_p(
+id_endereco INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+id_p INT NOT NULL,
+rua VARCHAR(45) NOT NULL,
+cidade VARCHAR(45) NOT NULL, 
+bairro VARCHAR(45) NOT NULL, 
+estado VARCHAR(45) NOT NULL,
+complemento VARCHAR(10) NOT NULL,
+numero INT NOT NULL,
+FOREIGN KEY (id_p) REFERENCES paciente(id_p)
+);
