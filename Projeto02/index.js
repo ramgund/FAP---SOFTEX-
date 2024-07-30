@@ -22,12 +22,42 @@ const cadastrarMedico = () => {
   } else {
     let nomeMedico = rl.question("Digite o nome do medico: ");
 
-    medicos.push({
-      id: idMedico,
-      nome: nomeMedico,
-    });
+    let medicoAtendeu = rl.question(
+      "Médico atendeu algum paciente?y/n"
+    ).toLocaleUpperCase;
 
-    console.log("Medico Cadastrado com sucesso!");
+    if (medicoAtendeu == "y") {
+      let idPaciente = parseInt(rl.question("Digite o id do paciente: "));
+
+      let pacienteExiste = pacientes.some((p) => p.id == idPaciente);
+
+      if (pacienteExiste) {
+        let dadosPaciente = pacientes.find((p) => p.id == idPaciente);
+
+        medicos.push({
+          id: idMedico,
+          nome: nomeMedico,
+          historico: dadosPaciente,
+        });
+      } else {
+        console.log("Paciente não existe.");
+
+        medicos.push({
+          id: idMedico,
+          nome: nomeMedico,
+        });
+
+        menuInicial();
+      }
+    } else {
+      medicos.push({
+        id: idMedico,
+        nome: nomeMedico,
+      });
+
+      console.log("Medico cadastrado com sucesso!");
+      menuInicial();
+    }
   }
 };
 
@@ -42,7 +72,15 @@ const cadastrarPaciente = () => {
   } else {
     let nomePaciente = rl.question("Digite o nome do paciente: ");
 
-    let;
+    let diagnostico = rl.question("Digite o diagnostico do paciente: ");
+
+    pacientes.push({
+      id: idPaciente,
+      nome: nomePaciente,
+      diagnostico: diagnostico,
+    });
+    console.log("Paciente adicionado com sucesso!");
+    menuInicial();
   }
 };
 
@@ -52,5 +90,7 @@ while (opcao !== 0) {
   if (opcao == 1) {
     cadastrarMedico();
   } else if (opcao == 2) {
+    cadastrarPaciente();
+  } else if (opcao == 3) {
   }
 }
