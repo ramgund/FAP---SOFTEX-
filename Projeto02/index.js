@@ -12,21 +12,21 @@ const menuInicial = () => {
 };
 
 const cadastrarMedico = () => {
-  let idMedico = parseInt(rl.question("Digite o id do médico"));
+  let idMedico = parseInt(rl.question("Digite o id do médico: "));
 
   let medicoExiste = medicos.some((m) => m.id == idMedico);
 
   if (medicoExiste) {
     console.log(`Medico com id ${idMedico} já existe.`);
-    cadastrarMedico();
+    return;
   } else {
     let nomeMedico = rl.question("Digite o nome do medico: ");
 
-    let medicoAtendeu = rl.question(
-      "Médico atendeu algum paciente?y/n"
-    ).toLocaleUpperCase;
+    let medicoAtendeu = rl
+      .question("Médico atendeu algum paciente? y/n ")
+      .toUpperCase();
 
-    if (medicoAtendeu == "y") {
+    if (medicoAtendeu === "Y") {
       let idPaciente = parseInt(rl.question("Digite o id do paciente: "));
 
       let pacienteExiste = pacientes.some((p) => p.id == idPaciente);
@@ -46,8 +46,6 @@ const cadastrarMedico = () => {
           id: idMedico,
           nome: nomeMedico,
         });
-
-        menuInicial();
       }
     } else {
       medicos.push({
@@ -68,7 +66,7 @@ const cadastrarPaciente = () => {
 
   if (pacienteExiste) {
     console.log(`Paciente de id ${idPaciente} já existe.`);
-    cadastrarPaciente();
+    return;
   } else {
     let nomePaciente = rl.question("Digite o nome do paciente: ");
 
@@ -86,159 +84,158 @@ const cadastrarPaciente = () => {
 
 const excluirMedico_Paciente = () => {
   let escolha = parseInt(
-    rl.question("1 - Excluir medico\n2 - Excluir Paciente")
+    rl.question("1 - Excluir medico\n2 - Excluir Paciente\nEscolha: ")
   );
 
   if (escolha == 1) {
     let id = parseInt(rl.question("Digite o id do médico: "));
 
-    let hasId = medicos.some((m) => m.id == id);
+    let index = medicos.findIndex((m) => m.id == id);
 
-    if (hasId) {
-      let index = medicos.findIndex((m) => m.id == id);
-
-      if (index !== -1) {
-        medicos.slice(index, 1);
-        console.log("Médico excluido com sucesso!");
-      }
+    if (index !== -1) {
+      medicos.splice(index, 1);
+      console.log("Médico excluído com sucesso!");
     } else {
       console.log("ID não encontrado. Tente novamente.");
-      excluirMedico_Paciente();
     }
   } else if (escolha == 2) {
-    let id = parseInt(rl.question("Digite o id do médico: "));
+    let id = parseInt(rl.question("Digite o id do paciente: "));
 
-    let hasId_paciente = pacientes.some((p) => p.id == id);
+    let index = pacientes.findIndex((p) => p.id == id);
 
-    if (hasId_paciente) {
-      let index_paciente = pacientes.findIndex((p) => p.id == id);
-
-      if (index_paciente !== -1) {
-        pacientes.slice(index_paciente, 1);
-      }
+    if (index !== -1) {
+      pacientes.splice(index, 1);
+      console.log("Paciente excluído com sucesso!");
+      menuInicial();
     } else {
       console.log("ID não encontrado. Tente novamente.");
-      excluirMedico_Paciente();
+      return;
     }
   }
 };
 
 const atualizarMedico_Paciente = () => {
   let escolha = parseInt(
-    rl.question("1 - Atualizar medico\n2 - Atualizar Paciente")
+    rl.question("1 - Atualizar medico\n2 - Atualizar Paciente\nEscolha: ")
   );
 
   if (escolha == 1) {
-    let opcao = parseInt(rl.question("1 - Alterar id\n2 - Alterar nome"));
+    let opcao = parseInt(
+      rl.question("1 - Alterar id\n2 - Alterar nome\nEscolha: ")
+    );
 
     if (opcao == 1) {
       let idAlterar = parseInt(
         rl.question("Digite o id do médico que deseja alterar: ")
       );
 
-      let idExiste = medicos.some((m) => m.id == idAlterar);
+      let index = medicos.findIndex((m) => m.id == idAlterar);
 
-      if (idExiste) {
-        let index = medicos.findIndex((m) => m.id == idAlterar);
-
-        if (index !== -1) {
-          medicos[index].id == idAlterar;
-        }
+      if (index !== -1) {
+        let novoId = parseInt(rl.question("Digite o novo id: "));
+        medicos[index].id = novoId;
+        console.log("ID do médico alterado com sucesso!");
+        menuInicial();
       } else {
-        console.log("ID não existe. Tente novamente.");
-        atualizarMedico_Paciente();
+        console.log("ID não encontrado. Tente novamente.");
+        return;
       }
     } else if (opcao == 2) {
-      let nomeAlterar = parseInt(
+      let idAlterar = parseInt(
         rl.question("Digite o id do médico que deseja alterar: ")
       );
 
-      let idExiste = medicos.some((m) => m.id == nomeAlterar);
+      let index = medicos.findIndex((m) => m.id == idAlterar);
 
-      if (idExiste) {
-        let index = medicos.findIndex((m) => m.id == nomeAlterar);
-
-        if (index !== -1) {
-          medicos[index].nome == idAlterar;
-          console.log("Medico alterado com sucesso!");
-          menuInicial();
-        }
+      if (index !== -1) {
+        let novoNome = rl.question("Digite o novo nome: ");
+        medicos[index].nome = novoNome;
+        console.log("Nome do médico alterado com sucesso!");
+        menuInicial();
       } else {
-        console.log("ID não existe. Tente novamente.");
-        atualizarMedico_Paciente();
+        console.log("ID não encontrado. Tente novamente.");
+        return;
       }
     }
   } else if (escolha == 2) {
     let opcaoPaciente = parseInt(
-      rl.question("1 - Atualizar nome\n2 - Atualizar diagnostico ")
+      rl.question("1 - Atualizar nome\n2 - Atualizar diagnostico\nEscolha: ")
     );
 
     if (opcaoPaciente == 1) {
       let idPaciente = parseInt(rl.question("Digite o id do paciente: "));
 
-      let hasId = pacientes.some((p) => p.id == idPaciente);
+      let index = pacientes.findIndex((p) => p.id == idPaciente);
 
-      if (hasId) {
-        let nomeAlterado = rl.question(
-          "Digite o nome que voce deseja inserir: "
-        ).toLowerCase;
-
-        let indexPaciente = pacientes.findIndex((p) => p.id == idPaciente);
-
-        if (indexPaciente == -1) {
-          pacientes[indexPaciente].nome = nomeAlterado;
-          console.log("Paciente Atualizado com sucesso!");
-          menuInicial();
-        }
-      } else {
-        console.log("ID não existe. Tente novamente!");
+      if (index !== -1) {
+        let novoNome = rl.question("Digite o novo nome: ");
+        pacientes[index].nome = novoNome;
+        console.log("Nome do paciente atualizado com sucesso!");
         menuInicial();
+      } else {
+        console.log("ID não encontrado. Tente novamente!");
+        return;
       }
     } else if (opcaoPaciente == 2) {
       let idPaciente = parseInt(rl.question("Digite o id do paciente: "));
-      let hasId = pacientes.some((p) => p.id == idPaciente);
 
-      if (hasId) {
-        let novoDiag = rl.question("Digite o novo diagnostico: ").toLowerCase;
-        let indexD = pacientes.findIndex((p) => p.id == idPaciente);
+      let index = pacientes.findIndex((p) => p.id == idPaciente);
 
-        if (indexD !== -1) {
-          pacientes[indexD].diagnostico == novoDiag;
-          console.log("Paciente atualizado com sucesso!");
-          menuInicial();
-        }
+      if (index !== -1) {
+        let novoDiag = rl.question("Digite o novo diagnostico: ");
+        pacientes[index].diagnostico = novoDiag;
+        console.log("Diagnostico do paciente atualizado com sucesso!");
+        menuInicial();
       } else {
-        console.log("ID não existe. Tente novamente.");
-        atualizarMedico_Paciente();
+        console.log("ID não encontrado. Tente novamente.");
+        return;
       }
     }
   }
 };
 
 const mostrarDados = () => {
-  console.log(
-    `===MEDICO===\nid: ${medicos.id}\nnome: ${medicos.nome}\nHistorico: ${medicos.historico}`
-  );
-  console.log("=======================");
-  console.log(
-    `===PACIENTE===\nid: ${pacientes.id}\nNome: ${pacientes.nome}\nDiagnostico: ${pacientes.diagnostico}`
-  );
+  console.log("=== MEDICOS ===");
+  for (const medico of medicos) {
+    console.log(
+      `ID: ${medico.id}, Nome: ${medico.nome}, Histórico: ${
+        medico.historico ? JSON.stringify(medico.historico) : "N/A"
+      }`
+    );
+  }
+
+  console.log("=== PACIENTES ===");
+  for (const paciente of pacientes) {
+    console.log(
+      `ID: ${paciente.id}, Nome: ${paciente.nome}, Diagnóstico: ${paciente.diagnostico}`
+    );
+  }
 };
 
 let opcao = menuInicial();
 
 while (opcao !== 0) {
-  if (opcao == 1) {
-    cadastrarMedico();
-  } else if (opcao == 2) {
-    cadastrarPaciente();
-  } else if (opcao == 3) {
-    excluirMedico_Paciente();
-  } else if (opcao == 4) {
-    atualizarMedico_Paciente();
-  } else if (opcao == 5) {
-    mostrarDados();
-  } else if (opcao == 0) {
-    console.log("Saindo...0");
+  switch (opcao) {
+    case 1:
+      cadastrarMedico();
+      break;
+    case 2:
+      cadastrarPaciente();
+      break;
+    case 3:
+      excluirMedico_Paciente();
+      break;
+    case 4:
+      atualizarMedico_Paciente();
+      break;
+    case 5:
+      mostrarDados();
+      break;
+    default:
+      console.log("Opção inválida. Tente novamente.");
   }
+
+  opcao = menuInicial();
 }
+
+console.log("Saindo...");
