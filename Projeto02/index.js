@@ -1,6 +1,12 @@
 const rl = require("readline-sync");
 
-let medicos = [];
+let medicos = [
+  {
+    id: 0,
+    nome: "default",
+    historico: "default",
+  },
+];
 let pacientes = [];
 
 const menuInicial = () => {
@@ -121,7 +127,9 @@ const atualizarMedico_Paciente = () => {
 
   if (escolha == 1) {
     let opcao = parseInt(
-      rl.question("1 - Alterar id\n2 - Alterar nome\nEscolha: ")
+      rl.question(
+        "1 - Alterar id\n2 - Alterar nome\n3 -Inserir historico\nEscolha: "
+      )
     );
 
     if (opcao == 1) {
@@ -155,6 +163,33 @@ const atualizarMedico_Paciente = () => {
       } else {
         console.log("ID não encontrado. Tente novamente.");
         return;
+      }
+    } else if (opcao == 3) {
+      let idHistorico = parseInt(
+        rl.question("Digite o id do médico que deseja alterar: ")
+      );
+      let hasId_historico = medicos.some((m) => m.id == idHistorico);
+
+      if (hasId_historico) {
+        let novoHistorico_id = rl.question("Digite o id do paciente: ");
+
+        let idExiste_paciente = pacientes.some((m) => m.id == novoHistorico_id);
+
+        if (idExiste_paciente) {
+          let dadosHistorico_paciente = pacientes.find(
+            (p) => p.id == novoHistorico_id
+          );
+          let catchIndex = medicos.findIndex((m) => m.id == idHistorico);
+
+          if (catchIndex !== -1) {
+            medicos[catchIndex].historico = dadosHistorico_paciente;
+            console.log("Historico cadastrado com sucesso!");
+            menuInicial();
+          }
+        } else {
+          console.log("ID não encontrado. Tente novamente.");
+          return;
+        }
       }
     }
   } else if (escolha == 2) {
