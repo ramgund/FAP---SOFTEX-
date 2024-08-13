@@ -17,6 +17,7 @@ const menuInicial = () => {
   );
 };
 
+
 const cadastrarMedico = () => {
   let idMedico = parseInt(rl.question("Digite o id do médico: "));
 
