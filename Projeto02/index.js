@@ -8,6 +8,7 @@ let medicos = [
   },
 ];
 let pacientes = [];
+ 
 
 const menuInicial = () => {
   return parseInt(
